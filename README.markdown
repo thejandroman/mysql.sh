@@ -26,7 +26,7 @@ Functions
 
 *password*
 
-    The password
+    The password.
 
 *port*
 
