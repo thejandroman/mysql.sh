@@ -14,23 +14,22 @@ Functions
 
     mysql_connect $server $username $password $port
 
+-
 
 **Parameters**
 
->*server*
->
->The MySQL server.
+*server*
 
+    The MySQL server.
 
->*username*
->
->The username.
+*username*
 
+    The username.
 
->*password*
->
->The password
+*password*
 
->*port*
->
->The server port. If blank this defaults to 3306.
+    The password
+
+*port*
+
+    The server port. If blank this defaults to 3306.
