@@ -11,14 +11,13 @@ function mysql_connect {
         return_error "Error: No server specified" 1
         break
     fi
-    local port=$2
+    local username=$2
+    local password=$3
+    local port=$4
     if [ -z $port ]; then port=3306; fi
     if ! [[ "$port" =~ ^[0-9]+$ ]] ; then
         return_error "Error: Port not a number" 1
         break
-    else
-        local username=$3
-        local password=$4
     fi
     printf "mysql -sN --host=$server --port=$port --user=$username --password=$password"
 }
