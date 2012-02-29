@@ -7,7 +7,10 @@ function return_error {
 
 function mysql_connect {
     local server=$1
-    if [ -n $1 ]; then return_error "Error: No server specified" 1; fi
+    if [ -n $1 ]; then
+        return_error "Error: No server specified" 1
+        break
+    fi
     local port=$2
     if [ -z $port ]; then port=3306; fi
     if ! [[ "$port" =~ ^[0-9]+$ ]] ; then
