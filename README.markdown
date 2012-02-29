@@ -47,5 +47,6 @@ Example #1 mysql_connect() example
         printf "Error\n"
         exit
     else
-        echo $link
+    echo $link
+    # mysql -sN --host=localhost --port=3306 --user=mysql_user --password=mysql_password
     fi
