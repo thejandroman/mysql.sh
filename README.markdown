@@ -10,18 +10,26 @@ Functions
 
 ### mysql_connect
 
-> Description
-    mysql_connect $server $username $password $port
+**Description**
 
-> Parameters
+    mysql_connect $server $username $password $port**
+
+
+**Parameters**
+
+
 *server*
+
 The MySQL server.
 
 *username*
+
 The username.
 
 *password*
+
 The password
 
 *port*
+
 The server port. If blank this defaults to 3306.
