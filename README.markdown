@@ -14,8 +14,6 @@ Functions
 
     mysql_connect $server $username $password $port
 
--
-
 **Parameters**
 
 *server*
@@ -33,3 +31,21 @@ Functions
 *port*
 
     The server port. If blank this defaults to 3306.
+
+**Return Values**
+
+Returns a string containing MySQL command line connection parameters
+on success or **1** on failure.
+
+**Examples**
+
+Example #1 mysql_connect() example
+
+    . mysql.sh
+    link=$(mysql_connect localhost mysql_user mysql_password)
+    if [ "$?" -eq "1" ]; then
+        printf "Error\n"
+        exit
+    else
+        echo $link
+    fi
