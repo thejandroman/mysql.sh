@@ -6,18 +6,24 @@ function return_error {
 }
 
 function mysql_connect {
-    while getopts "s:P:u:p:" option; do
+    while getopts "s:P:u:p:S" option; do
         case "$option" in
             s) local server="$OPTARG";;
             P) local server="$OPTARG";;
             u) local username="$OPTARG";;
             p) local password="$OPTARG";;
+            S) local disableSecureAuth="1";;
             :) return_errorn "Error: -$OPTARG requires argument" 1
                 break;;
             /?) return_error "Error: Incorrect option" 1
                 break;;
         esac
     done
+    if [ "$disableSecureAuth" ]; then
+        secureAuth=""
+    else
+        secureAuth="--secure-auth"
+    fi
     if [ -z "$server" ]; then server="localhost"; fi
     if [ -z "$port" ]; then port="3306"; fi
     if ! [[ "$port" =~ ^[0-9]+$ ]] ; then
@@ -34,7 +40,8 @@ function mysql_connect {
     else
         local passString="--password=\"$password\""
     fi
-    printf "mysql -s --host=$server --port=$port $userString $passString"
+    printf "mysql $secureAuth --host=$server --port=$port $userString\
+$passString"
 }
 
 function mysql_query {
@@ -55,6 +62,10 @@ function mysql_query {
     if [ -z "$query" ]; then
         return_error "Error: No query specified" 1
         break
+    fi
+    result=$($link -B -e $query)
+    if [ ! "$?" ]; then
+        return_error "Error: Query failed" 1
     fi
 
 }
