@@ -39,9 +39,9 @@ on success or **1** on failure.
 
 **Examples**
 
-Example #1 mysql_connect() example
+Example #1: mysql_connect() example
 
-    . mysql.sh
+    . /path/to/mysql.sh
     link=$(mysql_connect localhost mysql_user mysql_password)
     if [ "$?" -eq "1" ]; then
         printf "Error\n"
