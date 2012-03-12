@@ -9,7 +9,7 @@ function mysql_connect {
     while getopts "s:P:u:p:S" option; do
         case "$option" in
             s) local server="$OPTARG";;
-            P) local server="$OPTARG";;
+            P) local port="$OPTARG";;
             u) local username="$OPTARG";;
             p) local password="$OPTARG";;
             S) local disableSecureAuth="1";;
