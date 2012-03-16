@@ -40,7 +40,7 @@ function mysql_connect {
     else
         local passString="--password=\"$password\""
     fi
-    printf "mysql $secureAuth --host=$server --port=$port $userString \
+    printf "mysql $secureAuth --batch --host=$server --port=$port $userString \
 $passString"
 }
 
