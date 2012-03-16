@@ -13,10 +13,10 @@ function mysql_connect {
             u) local username="$OPTARG";;
             p) local password="$OPTARG";;
             S) local disableSecureAuth="1";;
-            :) return_errorn "Error: -$OPTARG requires argument" 1
-                break;;
-            /?) return_error "Error: Incorrect option" 1
-                break;;
+            :) local rtrn=$(return_error "Error: -$OPTARG requires argument" 1)
+                return $rtrn;;
+            /?) local rtrn=$(return_error "Error: Incorrect option" 1)
+                return $rtrn;;
         esac
     done
     if [ "$disableSecureAuth" -eq "1" ]; then
@@ -27,8 +27,8 @@ function mysql_connect {
     if [ -z "$server" ]; then server="localhost"; fi
     if [ -z "$port" ]; then port="3306"; fi
     if ! [[ "$port" =~ ^[0-9]+$ ]] ; then
-        return_error "Error: Port not a number" 1
-        break
+        local rtrn=$(return_error "Error: Port not a number" 1)
+        return $rtrn
     fi
     if [ -z "$username" ]; then
         local userString=""
@@ -55,23 +55,23 @@ function mysql_query {
                 local varString="$OPTARG[*]"
                 local varArray=(${!varString})
                 IFS=$OLD_IFS;;
-            :) return_errorn "Error: -$OPTARG requires argument" 1
-                break;;
-            /?) return_error "Error: Incorrect option" 1
-                break;;
+            :) local rtrn=$(return_error "Error: -$OPTARG requires argument" 1)
+                return $rtrn;;
+            /?) local rtrn=$(return_error "Error: Incorrect option" 1)
+                return $rtrn;;
         esac
     done
     if [ -z "$link" ]; then
-        return_error "Error: No link specified" 1
-        break
+        local rtrn=$(return_error "Error: No link specified" 1)
+        return $rtrn
     fi
     if [ -z "$query" ]; then
-        return_error "Error: No query specified" 1
-        break
+        local rtrn=$(return_error "Error: No query specified" 1)
+        return $rtrn
     fi
     varArray=($($link -B -e $query))
     if [ ! "$?" ]; then
-        return_error "Error: Query failed" 1
+        local rtrn=$(return_error "Error: Query failed" 1)
+        return $rtrn
     fi
-
 }
