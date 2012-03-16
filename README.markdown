@@ -55,3 +55,33 @@ Example #1: mysql_connect() example
     echo $link
     # mysql --secure-auth --batch --host=localhost --port=3306 --user=mysql_user --password=mysql_password
     fi
+
+### mysql_query
+
+**Description**
+
+    mysql_query -l $link -q $query -v $array
+
+**Parameters**
+
+*-l link*
+
+    link
+
+*-q query*
+
+    query
+
+*-v array variable*
+
+    array variable
+
+**Return Values**
+
+Returns
+
+**Examples**
+
+Example #1: mysql_query() example
+
+    . /path/to/mysql.sh
