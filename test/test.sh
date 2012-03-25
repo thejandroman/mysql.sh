@@ -17,4 +17,4 @@ fi
 
 results=()
 mysql_query -l '$link' -q 'SELECT string FROM mysqlshTest.unitTest1 WHERE id in\
-(2,3)' -v $results
+(2,3)' -v results
