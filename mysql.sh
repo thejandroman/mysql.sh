@@ -34,12 +34,12 @@ function mysql_connect {
     if [ -z "$username" ]; then
         local userString=""
     else
-        local userString="--user='$username'"
+        local userString="--user=$username"
     fi
     if [ -z "$password" ]; then
         local passString=""
     else
-        local passString="--password='$password'"
+        local passString="--password=$password"
     fi
     printf "mysql $secureAuth --batch --host=$server --port=$port $userString \
 $passString"
@@ -50,12 +50,7 @@ function mysql_query {
         case $option in
             l) local link="$OPTARG";;
             q) local query="$OPTARG";;
-            v)
-                local OLD_IFS=$IFS
-                IFS=''
-                local varString="$OPTARG[*]"
-                local varArray=(${!varString})
-                IFS=$OLD_IFS;;
+            v) local passedVar='$OPTARG';;
             :) return_error "Error: -$OPTARG requires argument" 1
                 return $?;;
             /?) return_error "Error: Incorrect option" 1
@@ -70,9 +65,14 @@ function mysql_query {
         return_error "Error: No query specified" 1
         return $?
     fi
-    varArray=($($link -B -e $query))
+    varArray=($($link -e "$query"))
     if [ ! "$?" ]; then
         return_error "Error: Query failed" 1
         return $?
     fi
+    local OLD_IFS=$IFS
+    IFS=''
+    local varString="$varArray[*]"
+    \$$pasedVar=(${!varString})
+    IFS=$OLD_IFS;;
 }
