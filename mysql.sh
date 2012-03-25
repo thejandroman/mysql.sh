@@ -7,7 +7,7 @@ function return_error {
 
 function mysql_connect {
     local disableSecureAuth=0
-    while getopts "s:P:u:p:S" option; do
+    while getopts ":s:P:u:p:S" option; do
         case "$option" in
             s) local server="$OPTARG";;
             P) local port="$OPTARG";;
@@ -46,7 +46,7 @@ $passString"
 }
 
 function mysql_query {
-    while getopts "l:q:v:" option; do
+    while getopts ":l:q:v:" option; do
         case $option in
             l) local link="$OPTARG";;
             q) local query="$OPTARG";;
