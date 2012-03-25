@@ -73,6 +73,6 @@ function mysql_query {
     local OLD_IFS=$IFS
     IFS=''
     local varString="$varArray[*]"
-    \$$pasedVar=(${!varString})
+    \$$passedVar=(${!varString})
     IFS=$OLD_IFS;;
 }
