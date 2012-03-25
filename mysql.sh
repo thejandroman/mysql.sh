@@ -34,12 +34,12 @@ function mysql_connect {
     if [ -z "$username" ]; then
         local userString=""
     else
-        local userString="--user=\"$username\""
+        local userString="--user='$username'"
     fi
     if [ -z "$password" ]; then
         local passString=""
     else
-        local passString="--password=\"$password\""
+        local passString="--password='$password'"
     fi
     printf "mysql $secureAuth --batch --host=$server --port=$port $userString \
 $passString"
