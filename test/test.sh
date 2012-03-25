@@ -13,3 +13,4 @@ if [ "$?" -eq "1" ]; then
     exit
 else
     echo $link
+fi
