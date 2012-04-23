@@ -46,11 +46,10 @@ $passString"
 }
 
 function mysql_query {
-    while getopts ":l:q:v:" option; do
+    while getopts ":l:q:" option; do
         case $option in
             l) local link="$OPTARG";;
             q) local query="$OPTARG";;
-            v) local passedVar='$OPTARG';;
             :) return_error "Error: -$OPTARG requires argument" 1
                 return $?;;
             /?) return_error "Error: Incorrect option" 1
@@ -65,14 +64,18 @@ function mysql_query {
         return_error "Error: No query specified" 1
         return $?
     fi
-    varArray=($($link -e "$query"))
+    local command=$
+    varArray=($($link
+            -N
+            -e
+            "$query"))
     if [ ! "$?" ]; then
         return_error "Error: Query failed" 1
         return $?
     fi
     local OLD_IFS=$IFS
-    IFS=''
-    local varString="$varArray[*]"
-    \$$passedVar=(${!varString})
+    IFS='
+'
+    printf "%s\n" ${varArray[@]}
     IFS=$OLD_IFS;;
 }
