@@ -41,8 +41,8 @@ function mysql_connect {
     else
         local passString="--password=$password"
     fi
-    printf "mysql $secureAuth --batch --host=$server --port=$port $userString \
-$passString"
+    printf "mysql %s --batch --host=%s --port=%s %s %s" "$secureAuth" \
+"$server" "$port" "$userString" "$passString"
 }
 
 function mysql_query {
@@ -64,18 +64,27 @@ function mysql_query {
         return_error "Error: No query specified" 1
         return $?
     fi
-    local command=$
-    varArray=($($link
-            -N
-            -e
-            "$query"))
-    if [ ! "$?" ]; then
+    local result=$($link -N -e "$query")
+    # Need to fix this error so it returns the mysql error
+    if [ "$?" -ne 0 ]; then
         return_error "Error: Query failed" 1
         return $?
     fi
-    local OLD_IFS=$IFS
-    IFS='
-'
-    printf "%s\n" ${varArray[@]}
-    IFS=$OLD_IFS;;
+    printf "%s\n" "$result"
+}
+
+function mysql_result {
+    varArray=$result #result from mysql_query
+    local oldIFS=$IFS
+    IFS=$'\n'
+    local i=0
+    for newline in $varArray; do
+        local oldIFS2=$IFS
+        IFS=$'\t'
+        for tab in $newline; do
+            printf "tab: %s\n" "$tab"
+        done
+        IFS=$oldIFS2
+    done
+    IFS=$oldIFS;
 }

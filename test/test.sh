@@ -12,9 +12,9 @@ if [ "$?" -eq "1" ]; then
     printf "Error\n"
     exit
 else
-    echo $link
+    printf "%s\n" "$link"
 fi
 
 results=()
-mysql_query -l "$link" -q 'SELECT string FROM mysqlshTest.unitTest1 WHERE id in (2,3)' -v results
-printf "${results[@]}\n"
+mysql_query -l "$link" -q 'SELECT * FROM mysqlshTest.unitTest1' -v results
+#printf "${results[@]}\n"
