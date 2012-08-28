@@ -72,13 +72,9 @@ Example #1: mysql_connect() example
 
     query
 
-*-v array variable*
-
-    array variable
-
 **Return Values**
 
-Returns
+Returns a variable containing the results of the query.
 
 **Examples**
 
