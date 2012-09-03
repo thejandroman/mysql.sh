@@ -5,6 +5,22 @@ function return_error {
     return $2
 }
 
+function regexCheck {
+    if [[ $# -ne 2 ]]; then
+        echo "Incorrect usage of regexCheck."
+        exit 1
+    fi
+    local regex=$1
+    shopt -s nocasematch
+    if [[ $2 =~ $regex ]]; then
+        shopt -u nocasematch
+        return 0
+    else
+        shopt -u nocasematch
+        return 1
+    fi
+}
+
 function mysql_connect {
     local disableSecureAuth=0
     while getopts ":s:P:u:p:S" option; do
@@ -41,7 +57,7 @@ function mysql_connect {
     else
         local passString="--password=$password"
     fi
-    printf "mysql %s --batch --host=%s --port=%s %s %s" "$secureAuth" \
+    printf "mysql %s --host=%s --port=%s %s %s" "$secureAuth" \
 "$server" "$port" "$userString" "$passString"
 }
 
@@ -64,13 +80,23 @@ function mysql_query {
         return_error "Error: No query specified" 1
         return $?
     fi
-    local result=$($link -N -e "$query")
+    if regexCheck "select" $query -o regexCheck "show" $query -o regexCheck /
+        "describe" $query -o regexCheck "explain" $query; then
+        local result=$($link -B -N -e "$query")
     # Need to fix this error so it returns the mysql error
-    if [ "$?" -ne 0 ]; then
-        return_error "Error: Query failed" 1
-        return $?
+        if [ "$?" -ne 0 ]; then
+            return_error "Error: Query failed" 1
+            return 1
+        fi
+        printf "%s\n" "$result"
+    else
+		local result=$($link -B -N -e "$query")
+		if [ "$?" -ne 0 ]; then
+            return_error "Error: Query failed" 1
+            return 1
+        fi
+        return 0
     fi
-    printf "%s\n" "$result"
 }
 
 function mysql_result {
