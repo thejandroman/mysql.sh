@@ -1,88 +1,140 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset='utf-8'>
 
-  <title>thejandroman/mysql.sh @ GitHub</title>
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Mysql.sh : MySQL API for bash based on PHP Original MySQL API." />
 
-  <style type="text/css">
-    body {
-      margin-top: 1.0em;
-      background-color: #804c91;
-      font-family: Helvetica, Arial, FreeSans, san-serif;
-      color: #ffffff;
-    }
-    #container {
-      margin: 0 auto;
-      width: 700px;
-    }
-    h1 { font-size: 3.8em; color: #7fb36e; margin-bottom: 3px; }
-    h1 .small { font-size: 0.4em; }
-    h1 a { text-decoration: none }
-    h2 { font-size: 1.5em; color: #7fb36e; }
-    h3 { text-align: center; color: #7fb36e; }
-    a { color: #7fb36e; }
-    .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
-    .download { float: right; }
-    pre { background: #000; color: #fff; padding: 15px;}
-    hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
-    .footer { text-align:center; padding-top:30px; font-style: italic; }
-  </style>
-</head>
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
-<body>
-  <a href="https://github.com/thejandroman/mysql.sh"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+    <title>Mysql.sh</title>
+  </head>
 
-  <div id="container">
+  <body>
 
-    <div class="download">
-      <a href="https://github.com/thejandroman/mysql.sh/zipball/master">
-        <img border="0" width="90" src="https://github.com/images/modules/download/zip.png"></a>
-      <a href="https://github.com/thejandroman/mysql.sh/tarball/master">
-        <img border="0" width="90" src="https://github.com/images/modules/download/tar.png"></a>
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/thejandroman/mysql.sh">View on GitHub</a>
+
+          <h1 id="project_title">Mysql.sh</h1>
+          <h2 id="project_tagline">MySQL API for bash based on PHP Original MySQL API.</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/thejandroman/mysql.sh/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/thejandroman/mysql.sh/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
     </div>
 
-    <h1><a href="https://github.com/thejandroman/mysql.sh">mysql.sh</a>
-      <span class="small">by <a href="https://github.com/thejandroman">thejandroman</a></span></h1>
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>mysql.sh</h1>
 
-    <div class="description">
-      MySQL API for bash
+<p>A MySQL API for bash based on PHP
+<a href="http://php.net/manual/en/book.mysql.php">Original MySQL API</a>. Not
+much here yet but more coming soon.</p>
+
+<h2>Functions</h2>
+
+<h3>mysql_connect</h3>
+
+<p><strong>Description</strong></p>
+
+<pre><code>mysql_connect -s $server -u $username -p $password -P $port -S
+</code></pre>
+
+<p><strong>Parameters</strong></p>
+
+<p><em>-s server</em></p>
+
+<pre><code>The MySQL server.
+</code></pre>
+
+<p><em>-u username</em></p>
+
+<pre><code>The username.
+</code></pre>
+
+<p><em>-p password</em></p>
+
+<pre><code>The password.
+</code></pre>
+
+<p><em>-P port</em></p>
+
+<pre><code>The server port. If blank this defaults to 3306.
+</code></pre>
+
+<p><em>-S</em></p>
+
+<pre><code>Disables mysql client's secure authentication. Secure
+authentication is enabled by default.
+</code></pre>
+
+<p><strong>Return Values</strong></p>
+
+<p>Returns a string containing MySQL command line connection parameters
+on success or <strong>1</strong> on failure.</p>
+
+<p><strong>Examples</strong></p>
+
+<p>Example #1: mysql_connect() example</p>
+
+<pre><code>. /path/to/mysql.sh
+link=$(mysql_connect -s localhost -P 3306 -u mysql_user -p mysql_password)
+if [ "$?" -eq "1" ]; then
+    printf "Error\n"
+    exit
+else
+echo $link
+# mysql --secure-auth --batch --host=localhost --port=3306 --user=mysql_user --password=mysql_password
+fi
+</code></pre>
+
+<h3>mysql_query</h3>
+
+<p><strong>Description</strong></p>
+
+<pre><code>mysql_query -l $link -q $query -v $array
+</code></pre>
+
+<p><strong>Parameters</strong></p>
+
+<p><em>-l link</em></p>
+
+<pre><code>link
+</code></pre>
+
+<p><em>-q query</em></p>
+
+<pre><code>query
+</code></pre>
+
+<p><strong>Return Values</strong></p>
+
+<p>Returns a variable containing the results of the query.</p>
+
+<p><strong>Examples</strong></p>
+
+<p>Example #1: mysql_query() example</p>
+
+<pre><code>. /path/to/mysql.sh
+</code></pre>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Mysql.sh maintained by <a href="https://github.com/thejandroman">thejandroman</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
     </div>
 
     
 
-    
-
-    
-
-    
-
-    
-      <h2>Authors</h2>
-      <p>thejandroman (thejandroman@gmail.com)<br/>      </p>
-    
-
-    
-      <h2>Contact</h2>
-      <p> (thejandroman@gmail.com)<br/>      </p>
-    
-
-    <h2>Download</h2>
-    <p>
-      You can download this project in either
-      <a href="https://github.com/thejandroman/mysql.sh/zipball/master">zip</a> or
-      <a href="https://github.com/thejandroman/mysql.sh/tarball/master">tar formats.
-    </p>
-    <p>You can also clone the project with <a href="http://git-scm.com">Git</a>
-      by running:
-      <pre>$ git clone git://github.com/thejandroman/mysql.sh</pre>
-    </p>
-
-    <div class="footer">
-      get the source code on GitHub : <a href="https://github.com/thejandroman/mysql.sh">thejandroman/mysql.sh</a>
-    </div>
-
-  </div>
-
-</body>
+  </body>
 </html>
