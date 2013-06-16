@@ -81,3 +81,5 @@ Returns a variable containing the results of the query.
 Example #1: mysql_query() example
 
     . /path/to/mysql.sh
+
+Test for Luis
