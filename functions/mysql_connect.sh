@@ -35,5 +35,5 @@ function mysql_connect {
         local passString="--password=$password"
     fi
     printf "mysql %s --host=%s --port=%s %s %s" "$secureAuth" \
-"$server" "$port" "$userString" "$passString"
+        "$server" "$port" "$userString" "$passString"
 }

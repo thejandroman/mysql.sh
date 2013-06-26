@@ -20,15 +20,15 @@ function mysql_query {
     if regexCheck "select" $query -o regexCheck "show" $query -o regexCheck /
         "describe" $query -o regexCheck "explain" $query; then
         local result=$($link -B -N -e "$query")
-    # Need to fix this error so it returns the mysql error
+        # Need to fix this error so it returns the mysql error
         if [ "$?" -ne 0 ]; then
             return_error "Error: Query failed" 1
             return 1
         fi
         printf "%s\n" "$result"
     else
-		local result=$($link -B -N -e "$query")
-		if [ "$?" -ne 0 ]; then
+        local result=$($link -B -N -e "$query")
+        if [ "$?" -ne 0 ]; then
             return_error "Error: Query failed" 1
             return 1
         fi
